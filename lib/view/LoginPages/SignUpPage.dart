@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 50,
                 ),
                 Container(
-                  height: 500,
+                  height: 450,
                   width: 330,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -56,186 +56,184 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   child: Form(
                     key: fKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.edit_note_outlined,size: 35,),
-                            SizedBox(width: 5,),
-                            Text(
-                              "SignUp",
-                              style: TextStyle(
-                                fontSize: 25,
-                                // fontFamily: "TAS",
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.edit_note_outlined,
+                                size: 35,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: NameController,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          maxLength: 20,
-                          // maxLengthEnforcement: MaxLengthEnforcement.none,
-                          decoration: InputDecoration(
-                            label: Text(
-                              "Name",
-                              style: TextStyle(
-                                color: Colors.black,
+                              SizedBox(
+                                width: 5,
                               ),
-                            ),
-                            counterText: '',
-                            // use is not visible maxLength in UI
-                            border: UnderlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xff004aad),
+                              Text(
+                                "SignUp",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  // fontFamily: "TAS",
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: isInvalidCredentials
-                                      ? Colors.red
-                                      : CupertinoColors.black),
-                            ),
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          controller: NameController,
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          maxLength: 50,
-                          // maxLengthEnforcement: MaxLengthEnforcement.none,
-                          decoration: InputDecoration(
-                            label: Text(
-                              "Email",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            counterText: '',
-                            // use is not visible maxLength in UI
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xff004aad),
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: isInvalidCredentials
-                                      ? Colors.red
-                                      : CupertinoColors.black),
-                            ),
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          controller: MobileController,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
-                          maxLength: 10,
-                          // maxLengthEnforcement: MaxLengthEnforcement.none,
-                          decoration: InputDecoration(
-                            label: Text(
-                              "Mobile No",
-                              style: TextStyle(
-                                color: Colors.black,
+                          TextFormField(
+                            controller: NameController,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            maxLength: 20,
+                            // maxLengthEnforcement: MaxLengthEnforcement.none,
+                            decoration: InputDecoration(
+                              label: Text(
+                                "Name",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            counterText: '',
-                            // use is not visible maxLength in UI
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xff004aad),
+                              counterText: '',
+                              // use is not visible maxLength in UI
+                              border: UnderlineInputBorder(),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xff004aad),
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: isInvalidCredentials
-                                      ? Colors.red
-                                      : CupertinoColors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        TextFormField(
-                          controller: PinController,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
-                          maxLength: 4,
-                          obscureText: isPassword,
-                          decoration: InputDecoration(
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isPassword = !isPassword;
-                                });
-                              },
-                              child: Icon(isPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                            label: Text(
-                              "Pin",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            counterText: '',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xff004aad),
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: isInvalidCredentials
-                                      ? Colors.red
-                                      : CupertinoColors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FilledButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, "LoginPage");
-                          },
-                          child: Text("SignUp"),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: Color(0xff004aad),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: isInvalidCredentials
+                                        ? Colors.red
+                                        : CupertinoColors.black),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 8,
+                          ),
+                          TextFormField(
+                            controller: NameController,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            maxLength: 50,
+                            // maxLengthEnforcement: MaxLengthEnforcement.none,
+                            decoration: InputDecoration(
+                              label: Text(
+                                "Email",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              counterText: '',
+                              // use is not visible maxLength in UI
+                              border: UnderlineInputBorder(),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xff004aad),
+                                ),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: isInvalidCredentials
+                                        ? Colors.red
+                                        : CupertinoColors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          TextFormField(
+                            controller: MobileController,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            maxLength: 10,
+                            // maxLengthEnforcement: MaxLengthEnforcement.none,
+                            decoration: InputDecoration(
+                              label: Text(
+                                "Mobile No",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              counterText: '',
+                              // use is not visible maxLength in UI
+                              border: UnderlineInputBorder(),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xff004aad),
+                                ),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: isInvalidCredentials
+                                        ? Colors.red
+                                        : CupertinoColors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          TextFormField(
+                            controller: PinController,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            maxLength: 4,
+                            obscureText: isPassword,
+                            decoration: InputDecoration(
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isPassword = !isPassword;
+                                  });
+                                },
+                                child: Icon(isPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                              ),
+                              label: Text(
+                                "Pin",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              counterText: '',
+                              border: UnderlineInputBorder(),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xff004aad),
+                                ),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: isInvalidCredentials
+                                        ? Colors.red
+                                        : CupertinoColors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, "LoginPage");
+                            },
+                            child: Text("SignUp"),
+                            style: FilledButton.styleFrom(
+                              backgroundColor: Color(0xff004aad),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

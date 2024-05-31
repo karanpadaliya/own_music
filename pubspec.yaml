@@ -93,3 +93,7 @@ flutter:
     - family: TAS
       fonts:
         - asset: assets/fonts/EduTASBeginner-VariableFont_wght.ttf
+
+    - family: LXG
+      fonts:
+        - asset: assets/fonts/LXGWWenKaiMonoTC-Regular.ttf
