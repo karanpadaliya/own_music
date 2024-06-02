@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:own_music/view/HomePage.dart';
-import 'package:own_music/view/IntroductionPages/SplashScreen.dart';
-import 'package:own_music/view/LoginPages/LoginPage.dart';
-import 'package:own_music/view/LoginPages/SignUpPage.dart';
-import 'package:own_music/view/SongPlayPages/SongPage.dart';
-
+import 'package:own_music/view/MainPage.dart';
+import 'package:own_music/view/Pages/IntroductionPages/SplashScreen.dart';
+import 'package:own_music/view/Pages/LoginPages/LoginPage.dart';
+import 'package:own_music/view/Pages/LoginPages/SignUpPage.dart';
 void main() {
-  runApp(const MainPage());
+  runApp(const InitialPage());
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class InitialPage extends StatefulWidget {
+  const InitialPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<InitialPage> createState() => _InitialPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _InitialPageState extends State<InitialPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +22,7 @@ class _MainPageState extends State<MainPage> {
       initialRoute: "/",
       routes: {
         "/": (context) => SplashScreen(),
-        "HomePage": (context) => HomePage(),
+        "MainPage": (context) => MainPage(),
         "LoginPage": (context) => LoginPage(),
         "SignUpPage": (context) => SignUpPage(),
         // "SongPage": (context) => SongPage(),

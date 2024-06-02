@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:own_music/controller/SliderController.dart';
-import 'package:own_music/view/SongPlayPages/SongPage.dart';
+import 'package:own_music/view/Pages/SongPlayPages/SongPage.dart';
 
 class CarouselSliderPage extends StatefulWidget {
   CarouselSliderPage({super.key});

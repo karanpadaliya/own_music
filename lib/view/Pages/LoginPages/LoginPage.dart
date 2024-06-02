@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       FilledButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "HomePage");
+                          Navigator.pushNamed(context, "MainPage");
                         },
                         child: Text("LogIn"),
                         style: FilledButton.styleFrom(
