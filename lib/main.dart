@@ -29,7 +29,7 @@ class _InitialPageState extends State<InitialPage> {
         // "AudioPage": (context) => AudioPage(),
         // "VideoPage": (context) => VideoPage(),
         // "ArtistsPage": (context) => ArtistsPage(),
-        // "ArtistsSongPage": (context) => ArtistsSongPage(),
+        // "ArtistDetailPage": (context) => ArtistDetailPage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
