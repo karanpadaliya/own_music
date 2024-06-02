@@ -28,19 +28,23 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff004aad),
+        backgroundColor: Color(0xffE72C30),
         appBar: AppBar(
           backgroundColor: Colors.white,
-          toolbarHeight: 80,
-          leadingWidth: 100,
           leading: Image.asset("assets/images/Logo_png.png", scale: 3.5),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications_active_outlined,
-                size: 26,
-              ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(
+                  Icons.search_outlined,
+                  size: 26,
+                ),
+                Icon(
+                  Icons.notifications_active_outlined,
+                  size: 26,
+                ),
+              ],
             ),
             IconButton(
               onPressed: () {},

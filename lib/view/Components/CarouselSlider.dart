@@ -37,11 +37,13 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
                     },
                     child: CarouselSlider(
                       items: sliderList
-                          .map((item) => Image.network(
-                        item["image"],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ))
+                          .map(
+                            (item) => Image.network(
+                              item["image"],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          )
                           .toList(),
                       carouselController: carouselController,
                       options: CarouselOptions(
@@ -52,9 +54,11 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
                         viewportFraction: 0.8,
                         enableInfiniteScroll: true,
                         onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
+                          setState(
+                            () {
+                              currentIndex = index;
+                            },
+                          );
                         },
                       ),
                     ),
@@ -65,14 +69,15 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
                     child: Row(
                       children: List.generate(
                         sliderList.length,
-                            (index) {
+                        (index) {
                           bool isSelect = currentIndex == index;
                           return Container(
                             height: isSelect ? 13 : 10,
                             width: isSelect ? 30 : 10,
                             margin: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              color: isSelect ? Color(0xff004aad) : Colors.white,
+                              color:
+                                  isSelect ? Color(0xff004aad) : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                             ),
                           );

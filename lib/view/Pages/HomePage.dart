@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
+import 'package:own_music/view/Components/ArtistsPage.dart';
 import 'package:own_music/view/Components/CarouselSlider.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,72 +17,36 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xff004aad),
-        body: Column(
-          children: [
-            Container(
-              height: 185,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 15),
+                    padding: const EdgeInsets.only(left: 8, top: 10, bottom: 8),
                     child: Text(
-                      "Hello!!",
+                      "Top Picks",
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Text(
-                      "Karan Padaliya",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: "LXG",
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 25, right: 25, bottom: 5, top: 24),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText:
-                        "What do you want to listen today ?",
-                        labelStyle: TextStyle(
-                          fontSize: 15,
-                        ),
-                        suffixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 15),
-            Container(
-              height: 206,
-              color: Color(0xff004aad),
-              child: CarouselSliderPage(),
-            ),
-
-
-          //   Category
-            Text("data"),
-          ],
+              Container(
+                height: 206,
+                color: Color(0xff004aad),
+                child: CarouselSliderPage(),
+              ),
+              Container(
+                height: 200,
+                child: ArtistsPage(),
+              ),
+            ],
+          ),
         ),
       ),
     );
