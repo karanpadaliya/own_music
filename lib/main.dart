@@ -3,6 +3,7 @@ import 'package:own_music/view/HomePage.dart';
 import 'package:own_music/view/IntroductionPages/SplashScreen.dart';
 import 'package:own_music/view/LoginPages/LoginPage.dart';
 import 'package:own_music/view/LoginPages/SignUpPage.dart';
+import 'package:own_music/view/SongPlayPages/SongPage.dart';
 
 void main() {
   runApp(const MainPage());
@@ -26,6 +27,9 @@ class _MainPageState extends State<MainPage> {
         "HomePage": (context) => HomePage(),
         "LoginPage": (context) => LoginPage(),
         "SignUpPage": (context) => SignUpPage(),
+        // "SongPage": (context) => SongPage(),
+        // "AudioPage": (context) => AudioPage(),
+        // "VideoPage": (context) => VideoPage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
