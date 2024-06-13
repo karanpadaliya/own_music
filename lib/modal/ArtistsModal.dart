@@ -12,10 +12,11 @@ class ArtistPlayList {
   final String Album;
   final String Audio;
 
-  ArtistPlayList(
-      {required this.id,
-      required this.SongimageUrl,
-      required this.SongName,
-      required this.Album,
-      required this.Audio});
+  ArtistPlayList({
+    required this.id,
+    required this.SongimageUrl,
+    required this.SongName,
+    required this.Album,
+    required this.Audio,
+  });
 }

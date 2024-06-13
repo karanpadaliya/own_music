@@ -78,34 +78,4 @@ class _ArtistsPageState extends State<ArtistsPage> {
       ),
     );
   }
-
-// Row Artists(String Imagelink, String ArtistsName) {
-//   return Row(
-//     children: [
-//       SizedBox(
-//         width: 8,
-//       ),
-//       Column(
-//         children: [
-//           CircleAvatar(
-//             backgroundImage: NetworkImage(Imagelink),
-//             maxRadius: 50,
-//           ),
-//           SizedBox(
-//             height: 5,
-//           ),
-//           Text(
-//             ArtistsName,
-//             style: TextStyle(
-//               color: Colors.white,
-//             ),
-//           ),
-//         ],
-//       ),
-//       SizedBox(
-//         width: 8,
-//       ),
-//     ],
-//   );
-// }
 }
