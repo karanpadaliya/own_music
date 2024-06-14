@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:own_music/controller/ArtistsController.dart';
 import 'package:own_music/modal/ArtistsModal.dart';
+import 'package:own_music/view/Pages/SongPlayPages/SingleSongPlayPage.dart';
 
 class ArtistDetailPage extends StatefulWidget {
   final String imageUrl;
@@ -137,77 +137,93 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
               Expanded(
                 child: playlist.isNotEmpty
                     ? ListView.builder(
-                  itemCount: playlist.length,
-                  itemBuilder: (context, index) {
-                    final song = playlist[index];
-                    final isPlaying = currentPlayingIndex == index;
-                    return Container(
-                      height: 74,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xff004aad).withOpacity(0.05),
-                            Color(0xff004aad).withOpacity(0.15),
-                          ],
-                          begin: Alignment.topCenter,
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Center(
-                              child: Text(
-                                '${index + 1}',
-                                style: TextStyle(fontSize: 16),
+                        itemCount: playlist.length,
+                        itemBuilder: (context, index) {
+                          final song = playlist[index];
+                          final isPlaying = currentPlayingIndex == index;
+                          return Container(
+                            height: 74,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xff004aad).withOpacity(0.05),
+                                  Color(0xff004aad).withOpacity(0.15),
+                                ],
+                                begin: Alignment.topCenter,
                               ),
                             ),
-                            SizedBox(width: 14),
-                            CircleAvatar(
-                              maxRadius: 25,
-                              backgroundImage:
-                              NetworkImage(song.SongimageUrl),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SingleSongPlayPage(
+                                      song: song,
+                                      position: position,
+                                      duration: duration,
+                                      player: player,
+                                      playlist: ArijitSinghPlaylist,
+                                      initialSongIndex:
+                                          index, // Pass the player instance
+                                    ),
+                                  ),
+                                );
+                              },
+                              leading: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      '${index + 1}',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  SizedBox(width: 14),
+                                  CircleAvatar(
+                                    maxRadius: 25,
+                                    backgroundImage:
+                                        NetworkImage(song.SongimageUrl),
+                                  ),
+                                ],
+                              ),
+                              title: Text(song.SongName),
+                              subtitle: Text(song.Album),
+                              trailing: IconButton(
+                                onPressed: () async {
+                                  if (isPlaying) {
+                                    await player.pause();
+                                    setState(() {
+                                      currentPlayingIndex = null;
+                                    });
+                                  } else {
+                                    await player.play(UrlSource(song.Audio));
+                                    setState(() {
+                                      currentPlayingIndex = index;
+                                    });
+                                  }
+                                },
+                                icon: Icon(
+                                  isPlaying
+                                      ? Icons.pause_circle_outline
+                                      : Icons.play_circle_outline,
+                                  size: 35,
+                                  color: Color(0xff004aad),
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                        title: Text(song.SongName),
-                        subtitle: Text(song.Album),
-                        trailing: IconButton(
-                          onPressed: () async {
-                            if (isPlaying) {
-                              await player.pause();
-                              setState(() {
-                                currentPlayingIndex = null;
-                              });
-                            } else {
-                              await player.play(UrlSource(song.Audio));
-                              setState(() {
-                                currentPlayingIndex = index;
-                              });
-                            }
-                          },
-                          icon: Icon(
-                            isPlaying
-                                ? Icons.pause_circle_outline
-                                : Icons.play_circle_outline,
-                            size: 35,
-                            color: Color(0xff004aad),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: Text(
+                          'Playlist not found',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.5),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    );
-                  },
-                )
-                    : Center(
-                  child: Text(
-                    'Playlist not found',
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
@@ -216,91 +232,111 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
-                  child: Container(
-                    height: 150,
-                    color: Color(0xff004aad).withOpacity(0.2),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            maxRadius: 30,
-                            backgroundImage: NetworkImage(
-                                playlist[currentPlayingIndex!].SongimageUrl),
-                          ),
-                          title: Text(
-                            playlist[currentPlayingIndex!].SongName,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SingleSongPlayPage(
+                        song: playlist[currentPlayingIndex!],
+                        position: position,
+                        duration: duration,
+                        player: player,
+                        playlist: ArijitSinghPlaylist,
+                        initialSongIndex:
+                            currentPlayingIndex!, // Pass the player instance
+                      ),
+                    ),
+                  );
+                 // Navigator.pop(context);
+                },
+                child: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
+                    child: Container(
+                      height: 150,
+                      color: Color(0xff004aad).withOpacity(0.2),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: CircleAvatar(
+                              maxRadius: 30,
+                              backgroundImage: NetworkImage(
+                                  playlist[currentPlayingIndex!].SongimageUrl),
+                            ),
+                            title: Text(
+                              playlist[currentPlayingIndex!].SongName,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              playlist[currentPlayingIndex!].Album,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () async {
+                                if (currentPlayingIndex != null) {
+                                  await player.pause();
+                                  setState(() {
+                                    currentPlayingIndex = null;
+                                  });
+                                } else {
+                                  await player.play(UrlSource(
+                                      playlist[currentPlayingIndex!].Audio));
+                                  setState(() {
+                                    currentPlayingIndex = currentPlayingIndex;
+                                  });
+                                }
+                              },
+                              icon: Icon(
+                                currentPlayingIndex != null
+                                    ? Icons.pause_circle_outline
+                                    : Icons.play_circle_outline,
+                                size: 35,
+                                color: Color(0xff004aad),
+                              ),
                             ),
                           ),
-                          subtitle: Text(
-                            playlist[currentPlayingIndex!].Album,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () async {
-                              if (currentPlayingIndex != null) {
-                                await player.pause();
+                          Slider(
+                            thumbColor: Color(0xff004aad),
+                            activeColor: Color(0xff004aad),
+                            min: 0,
+                            max: duration.inSeconds.toDouble() > 0
+                                ? duration.inSeconds.toDouble()
+                                : 1,
+                            value: position.inSeconds
+                                .toDouble()
+                                .clamp(0, duration.inSeconds.toDouble()),
+                            onChanged: (value) async {
+                              final newPosition =
+                                  Duration(seconds: value.toInt());
+                              await player.seek(newPosition);
+                              await player.resume();
+                              if (duration == position) {
                                 setState(() {
                                   currentPlayingIndex = null;
                                 });
-                              } else {
-                                await player.play(UrlSource(
-                                    playlist[currentPlayingIndex!].Audio));
-                                setState(() {
-                                  currentPlayingIndex = currentPlayingIndex;
-                                });
                               }
                             },
-                            icon: Icon(
-                              currentPlayingIndex != null
-                                  ? Icons.pause_circle_outline
-                                  : Icons.play_circle_outline,
-                              size: 35,
-                              color: Color(0xff004aad),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(formatDuration(position)),
+                                Text(formatDuration(duration)),
+                              ],
                             ),
                           ),
-                        ),
-                        Slider(
-                          thumbColor: Color(0xff004aad),
-                          activeColor: Color(0xff004aad),
-                          min: 0,
-                          max: duration.inSeconds.toDouble() > 0
-                              ? duration.inSeconds.toDouble()
-                              : 1,
-                          value: position.inSeconds
-                              .toDouble()
-                              .clamp(0, duration.inSeconds.toDouble()),
-                          onChanged: (value) async {
-                            final newPosition =
-                            Duration(seconds: value.toInt());
-                            await player.seek(newPosition);
-                            await player.resume();
-                            if (duration == position) {
-                              setState(() {
-                                currentPlayingIndex = null;
-                              });
-                            }
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(formatDuration(position)),
-                              Text(formatDuration(duration)),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
