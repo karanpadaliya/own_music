@@ -80,6 +80,8 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
     playCurrentSong();
   }
 
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,27 +93,57 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Image.network(currentSong.SongimageUrl),
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Image.network(
+              currentSong.SongimageUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
           SizedBox(
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 150, left: 10),
+            padding: const EdgeInsets.only(top: 130, left: 10),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: CircleAvatar(
-                maxRadius: 150,
-                backgroundImage: NetworkImage(currentSong.SongimageUrl),
+              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+              child: Container(
+                child: Stack(
+                  children: [
+                    // Image
+                    Image.asset(
+                      "assets/images/musicBackground.gif",
+                      color: Colors.white,
+                    ),
+                    // CircleAvatar with padding
+                    Padding(
+                      padding: const EdgeInsets.only(top: 73, left: 73),
+                      child: CircleAvatar(
+                        maxRadius: 120,
+                        backgroundImage: NetworkImage(currentSong.SongimageUrl),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.only(top: 180),
+              padding: const EdgeInsets.only(top: 200),
               child: Text(
                 currentSong.SongName,
                 style: TextStyle(
+                  shadows: [
+                    Shadow(
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 10.0,
+                      color: Colors.black,
+                    ),
+                  ],
+                  color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
                 ),
@@ -121,10 +153,18 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
           Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.only(top: 240),
+              padding: const EdgeInsets.only(top: 260),
               child: Text(
                 "Album: ${currentSong.Album}",
                 style: TextStyle(
+                  shadows: [
+                    Shadow(
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 5.0,
+                      color: Colors.black,
+                    ),
+                  ],
+                  color: Colors.white,
                   fontSize: 14,
                 ),
               ),
@@ -141,8 +181,18 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(formatDuration(position)),
-                      Text(formatDuration(duration)),
+                      Text(
+                        formatDuration(position),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        formatDuration(duration),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -182,11 +232,23 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.shuffle,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
                 IconButton(
                   onPressed: playPreviousSong,
                   icon: Icon(
                     Icons.skip_previous,
                     size: 40,
+                    color: Colors.white,
                   ),
                 ),
                 IconButton(
@@ -203,6 +265,7 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                         ? Icons.pause_circle_outline
                         : Icons.play_circle_outline,
                     size: 60,
+                    color: Colors.white,
                   ),
                 ),
                 IconButton(
@@ -210,7 +273,22 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                   icon: Icon(
                     Icons.skip_next,
                     size: 40,
+                    color: Colors.white,
                   ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    isFavorite = !isFavorite;
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    size: 30,
+                    color: isFavorite ? Colors.red : Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
               ],
             ),

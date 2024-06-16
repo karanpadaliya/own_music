@@ -162,7 +162,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
                                       position: position,
                                       duration: duration,
                                       player: player,
-                                      playlist: ArijitSinghPlaylist,
+                                      playlist: playlist,
                                       initialSongIndex:
                                           index, // Pass the player instance
                                     ),
@@ -242,7 +242,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
                         position: position,
                         duration: duration,
                         player: player,
-                        playlist: ArijitSinghPlaylist,
+                        playlist: playlist,
                         initialSongIndex:
                             currentPlayingIndex!, // Pass the player instance
                       ),
