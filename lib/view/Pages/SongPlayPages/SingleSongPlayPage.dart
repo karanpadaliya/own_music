@@ -7,16 +7,14 @@ class SingleSongPlayPage extends StatefulWidget {
   final List<ArtistPlayList> playlist;
   final int initialSongIndex;
   final AudioPlayer player;
-  final Duration duration;
-  late Duration position;
 
   SingleSongPlayPage({
     required this.playlist,
     required this.initialSongIndex,
     required this.player,
-    required this.duration,
-    required this.position,
     required ArtistPlayList song,
+    required Duration position,
+    required Duration duration,
   });
 
   @override
@@ -26,6 +24,8 @@ class SingleSongPlayPage extends StatefulWidget {
 class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
   late int currentSongIndex;
   late ArtistPlayList currentSong;
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
 
   @override
   void initState() {
@@ -34,21 +34,33 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
     currentSong = widget.playlist[currentSongIndex];
     playCurrentSong();
 
-    // Update position when player's position changes
-    widget.player.onPositionChanged.listen((Duration newPosition) {
+    widget.player.onPlayerStateChanged.listen((state) {
+      if (state == PlayerState.completed) {
+        playNextSong();
+      }
+    });
+
+    widget.player.onDurationChanged.listen((newDuration) {
       setState(() {
-        widget.position = newPosition;
+        duration = newDuration;
       });
     });
 
-    // Play next song when current song ends
-    widget.player.onPlayerComplete.listen((event) {
-      playNextSong();
+    widget.player.onPositionChanged.listen((newPosition) {
+      setState(() {
+        position = newPosition;
+      });
     });
   }
 
   Future<void> playCurrentSong() async {
     await widget.player.play(UrlSource(currentSong.Audio));
+    final newDuration = await widget.player.getDuration();
+    final newPosition = await widget.player.getCurrentPosition();
+    setState(() {
+      duration = newDuration ?? Duration.zero;
+      position = newPosition ?? Duration.zero;
+    });
   }
 
   void playNextSong() {
@@ -61,10 +73,8 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
 
   void playPreviousSong() {
     setState(() {
-      currentSongIndex = (currentSongIndex - 1) % widget.playlist.length;
-      if (currentSongIndex < 0) {
-        currentSongIndex = widget.playlist.length - 1;
-      }
+      currentSongIndex = (currentSongIndex - 1 + widget.playlist.length) %
+          widget.playlist.length;
       currentSong = widget.playlist[currentSongIndex];
     });
     playCurrentSong();
@@ -131,8 +141,8 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(formatDuration(widget.position)),
-                      Text(formatDuration(widget.duration)),
+                      Text(formatDuration(position)),
+                      Text(formatDuration(duration)),
                     ],
                   ),
                 ),
@@ -145,12 +155,12 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                   thumbColor: Color(0xff004aad),
                   activeColor: Color(0xff004aad),
                   min: 0,
-                  max: widget.duration.inSeconds.toDouble() > 0
-                      ? widget.duration.inSeconds.toDouble()
+                  max: duration.inSeconds.toDouble() > 0
+                      ? duration.inSeconds.toDouble()
                       : 1,
-                  value: widget.position.inSeconds
+                  value: position.inSeconds
                       .toDouble()
-                      .clamp(0, widget.duration.inSeconds.toDouble()),
+                      .clamp(0, duration.inSeconds.toDouble()),
                   onChanged: (value) async {
                     final newPosition = Duration(seconds: value.toInt());
                     await widget.player.seek(newPosition);
@@ -158,7 +168,7 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                       await widget.player.resume();
                     }
                     setState(() {
-                      widget.position = newPosition;
+                      position = newPosition;
                     });
                   },
                 ),
@@ -215,11 +225,5 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     return '$minutes:$seconds';
-  }
-
-  @override
-  void dispose() {
-    widget.player.dispose();
-    super.dispose();
   }
 }
