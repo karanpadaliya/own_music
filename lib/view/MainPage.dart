@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:own_music/view/Pages/AudioPage.dart';
@@ -16,7 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-  late TabController tabController = TabController(length: 6, vsync: this);
+  late TabController tabController = TabController(length: 5, vsync: this);
 
   @override
   void dispose() {
@@ -28,39 +30,69 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffE72C30),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: Image.asset("assets/images/Logo_png.png", scale: 3.5),
-          actions: [
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(
-                  Icons.search_outlined,
-                  size: 26,
-                ),
-                Icon(
-                  Icons.notifications_active_outlined,
-                  size: 26,
-                ),
-              ],
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: CircleAvatar(
-                backgroundColor: Color(0xff004aad),
-                child: Icon(
-                  CupertinoIcons.person,
-                  color: Colors.white,
+        backgroundColor: Color(0xff004aad),
+        body: Column(
+          children: [
+            // Blurred AppBar
+            ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white,
+                        Color(0xff004aad).withOpacity(0.5),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: AppBar(
+                    toolbarHeight: 60,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    leading: Image.asset(
+                      "assets/images/Logo_png.png",
+                    ),
+                    leadingWidth: 70,
+                    actions: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.search_outlined,
+                              size: 26,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.notifications_active_outlined,
+                              size: 26,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: CircleAvatar(
+                          backgroundColor: Color(0xff004aad),
+                          child: Icon(
+                            CupertinoIcons.person,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                    automaticallyImplyLeading: false,
+                  ),
                 ),
               ),
             ),
-          ],
-          automaticallyImplyLeading: false,
-        ),
-        body: Column(
-          children: [
+            // TabBarView
             Expanded(
               child: TabBarView(
                 controller: tabController,
@@ -68,7 +100,6 @@ class _MainPageState extends State<MainPage>
                   HomePage(),
                   AudioPage(),
                   VideoPage(),
-                  CategoryPage(),
                   FavouritePage(),
                   ProfilePage(),
                 ],
@@ -76,6 +107,7 @@ class _MainPageState extends State<MainPage>
             ),
           ],
         ),
+        // Bottom Navigation Bar
         bottomNavigationBar: Container(
           color: Color(0xfff4f4f4),
           child: TabBar(
@@ -87,15 +119,10 @@ class _MainPageState extends State<MainPage>
             isScrollable: true,
             physics: BouncingScrollPhysics(),
             tabAlignment: TabAlignment.start,
-            // indicator: BoxDecoration(
-            //   // color: Colors.black,
-            //   shape: BoxShape.circle,
-            // ),
             tabs: [
               Tab(text: 'Home'),
               Tab(text: 'Audio'),
               Tab(text: 'Video'),
-              Tab(text: 'Category'),
               Tab(text: 'Favourite'),
               Tab(text: 'Profile'),
             ],
@@ -104,4 +131,10 @@ class _MainPageState extends State<MainPage>
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: MainPage(),
+  ));
 }

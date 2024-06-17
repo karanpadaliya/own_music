@@ -18,6 +18,7 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xff004aad),
         body: Column(
           children: [
             Expanded(
