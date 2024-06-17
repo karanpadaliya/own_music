@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:own_music/controller/ArtistsController.dart';
 import 'package:own_music/modal/ArtistsModal.dart';
+import 'package:own_music/view/Pages/FavouritePage.dart';
 
 class SingleSongPlayPage extends StatefulWidget {
   final List<ArtistPlayList> playlist;
@@ -26,12 +28,14 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
   late ArtistPlayList currentSong;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  bool isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     currentSongIndex = widget.initialSongIndex;
     currentSong = widget.playlist[currentSongIndex];
+    isFavorite = favoriteSongs.contains(currentSong);
     playCurrentSong();
 
     widget.player.onPlayerStateChanged.listen((state) {
@@ -67,6 +71,7 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
     setState(() {
       currentSongIndex = (currentSongIndex + 1) % widget.playlist.length;
       currentSong = widget.playlist[currentSongIndex];
+      isFavorite = favoriteSongs.contains(currentSong);
     });
     playCurrentSong();
   }
@@ -76,11 +81,31 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
       currentSongIndex = (currentSongIndex - 1 + widget.playlist.length) %
           widget.playlist.length;
       currentSong = widget.playlist[currentSongIndex];
+      isFavorite = favoriteSongs.contains(currentSong);
     });
     playCurrentSong();
   }
 
-  bool isFavorite = false;
+  void updateFavoriteStatus() {
+    setState(() {
+      isFavorite = !isFavorite;
+      if (isFavorite) {
+        favoriteSongs.add(currentSong);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Added to favorites'),
+          ),
+        );
+      } else {
+        favoriteSongs.remove(currentSong);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Removed from favorites'),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +114,20 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
         title: Text(currentSong.SongName),
         backgroundColor: Color(0xff004aad),
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) {
+              //     return FavouritePage();
+              //   }),
+              // );
+              Navigator.pushNamed(context, "FavouritePage");
+            },
+          ),
+        ],
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -118,9 +157,9 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                     ),
                     // CircleAvatar with padding
                     Padding(
-                      padding: const EdgeInsets.only(top: 73, left: 73),
+                      padding: const EdgeInsets.only(top: 78, left: 78),
                       child: CircleAvatar(
-                        maxRadius: 120,
+                        maxRadius: 115,
                         backgroundImage: NetworkImage(currentSong.SongimageUrl),
                       ),
                     ),
@@ -277,10 +316,7 @@ class _SingleSongPlayPageState extends State<SingleSongPlayPage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
-                    isFavorite = !isFavorite;
-                    setState(() {});
-                  },
+                  onPressed: updateFavoriteStatus,
                   icon: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,
                     size: 30,

@@ -63,6 +63,7 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff004aad),
       body: Column(
         children: [
           videoPlayerController != null &&

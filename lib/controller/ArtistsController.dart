@@ -3,6 +3,8 @@ import 'package:own_music/modal/ArtistsModal.dart';
 
 class ArtistsController extends ChangeNotifier {}
 
+List<ArtistPlayList> favoriteSongs = [];
+
 List<Artist> artists = [
   Artist(
     imageUrl:

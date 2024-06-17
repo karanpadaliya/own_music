@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:own_music/view/MainPage.dart';
+import 'package:own_music/view/Pages/FavouritePage.dart';
 import 'package:own_music/view/Pages/IntroductionPages/SplashScreen.dart';
 import 'package:own_music/view/Pages/LoginPages/LoginPage.dart';
 import 'package:own_music/view/Pages/LoginPages/SignUpPage.dart';
@@ -32,6 +33,7 @@ class _InitialPageState extends State<InitialPage> {
         // "ArtistsPage": (context) => ArtistsPage(),
         // "ArtistDetailPage": (context) => ArtistDetailPage(),
         // "SingleSongPlayPage": (context) => SingleSongPlayPage(song: ,),
+        "FavouritePage": (context) => FavouritePage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(

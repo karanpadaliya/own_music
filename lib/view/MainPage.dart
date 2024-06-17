@@ -67,12 +67,31 @@ class _MainPageState extends State<MainPage>
                               size: 26,
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.notifications_active_outlined,
-                              size: 26,
-                            ),
+                          Stack(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.notifications_active_outlined,
+                                  size: 26,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 24,top: 5),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  maxRadius: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(1.0),
+                                    child: Text(
+                                      "1+",
+                                      style: TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
