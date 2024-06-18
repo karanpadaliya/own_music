@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:own_music/modal/ArtistsModal.dart';
 
-class ArtistsController extends ChangeNotifier {}
+ArtistsController artistsController = ArtistsController();
+
+class ArtistsController {
+  Future<List<ArtistPlayList>> getAllSongs() async {
+    await Future.delayed(Duration(seconds: 2));
+    return [
+      ...ArijitSinghPlaylist,
+    ];
+  }
+}
 
 List<ArtistPlayList> favoriteSongs = [];
 

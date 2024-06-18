@@ -1,16 +1,18 @@
 import 'dart:ui';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:own_music/modal/ArtistsModal.dart';
 import 'package:own_music/view/Pages/AudioPage.dart';
-import 'package:own_music/view/Pages/CategoryPage.dart';
 import 'package:own_music/view/Pages/FavouritePage.dart';
 import 'package:own_music/view/Pages/HomePage.dart';
 import 'package:own_music/view/Pages/ProfilePage.dart';
+import 'package:own_music/view/Pages/SongPlayPages/SingleSongPlayPage.dart';
 import 'package:own_music/view/Pages/VideoPage.dart';
+import 'package:own_music/controller/artistsController.dart'; // Import your controller
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -18,12 +20,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-  late TabController tabController = TabController(length: 5, vsync: this);
+  late TabController tabController;
+  late ArtistsController artistsController;
 
   @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -77,7 +80,8 @@ class _MainPageState extends State<MainPage>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 24,top: 5),
+                                padding:
+                                    const EdgeInsets.only(left: 24, top: 5),
                                 child: CircleAvatar(
                                   backgroundColor: Colors.red,
                                   foregroundColor: Colors.white,
@@ -156,4 +160,30 @@ void main() {
   runApp(MaterialApp(
     home: MainPage(),
   ));
+}
+
+class SongList extends StatelessWidget {
+  final Map<String, List<ArtistPlayList>> playlists;
+
+  SongList({required this.playlists});
+
+  @override
+  Widget build(BuildContext context) {
+    List<ArtistPlayList> allSongs = [];
+
+    // Collect all songs from all playlists
+    playlists.forEach((artist, playlist) {
+      allSongs.addAll(playlist);
+    });
+
+    return ListView.builder(
+      itemCount: allSongs.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(allSongs[index].SongName),
+          subtitle: Text(allSongs[index].Album),
+        );
+      },
+    );
+  }
 }

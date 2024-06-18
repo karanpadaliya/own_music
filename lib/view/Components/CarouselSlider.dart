@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:own_music/controller/SliderController.dart';
-import 'package:own_music/view/Pages/SongPlayPages/SongPage.dart';
+// import 'package:own_music/view/Pages/SongPlayPages/SongPage.dart';
 
 class CarouselSliderPage extends StatefulWidget {
   CarouselSliderPage({super.key});
@@ -26,15 +26,15 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SongPage(
-                            imageUrl: sliderList[currentIndex]["image"],
-                            name: sliderList[currentIndex]["name"],
-                          ),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SongPage(
+                      //       imageUrl: sliderList[currentIndex]["image"],
+                      //       name: sliderList[currentIndex]["name"],
+                      //     ),
+                      //   ),
+                      // );
                     },
                     child: CarouselSlider(
                       items: sliderList
