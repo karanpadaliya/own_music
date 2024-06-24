@@ -19,4 +19,8 @@ class ArtistPlayList {
     required this.Album,
     required this.Audio,
   });
+
+  List<ArtistPlayList> getPlayList() {
+    return [this]; // Return a list containing only the current instance
+  }
 }

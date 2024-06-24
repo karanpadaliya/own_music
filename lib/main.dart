@@ -4,6 +4,7 @@ import 'package:own_music/view/Pages/FavouritePage.dart';
 import 'package:own_music/view/Pages/IntroductionPages/SplashScreen.dart';
 import 'package:own_music/view/Pages/LoginPages/LoginPage.dart';
 import 'package:own_music/view/Pages/LoginPages/SignUpPage.dart';
+import 'package:own_music/view/Pages/ProfilePage.dart';
 import 'package:own_music/view/Pages/SongPlayPages/SingleSongPlayPage.dart';
 void main() {
   runApp(const InitialPage());
@@ -34,6 +35,7 @@ class _InitialPageState extends State<InitialPage> {
         // "ArtistDetailPage": (context) => ArtistDetailPage(),
         // "SingleSongPlayPage": (context) => SingleSongPlayPage(song: ,),
         "FavouritePage": (context) => FavouritePage(),
+        "ProfilePage": (context) => ProfilePage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(

@@ -1,26 +1,93 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
-import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //For Password Visible
+  // For Password Visibility
   bool isPassword = true;
+
+  // GlobalKey for Form
+  final GlobalKey<FormState> fKey = GlobalKey<FormState>();
+
+  // Controllers for TextFormFields
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
+
+  // For Invalid Credentials
+  bool isInvalidCredentials = false;
+
+  // Biometric Authentication
+  final LocalAuthentication auth = LocalAuthentication();
+
+  // Retrieve Sign-Up Details from SharedPreferences
+  Future<Map<String, String?>> getSignUpDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    final name = prefs.getString('name');
+    final email = prefs.getString('email');
+    final mobile = prefs.getString('mobile');
+    final pin = prefs.getString('pin');
+    return {'name': name, 'email': email, 'mobile': mobile, 'pin': pin};
+  }
+
+  // Validate Login Credentials
+  Future<void> validateAndLogin() async {
+    final signUpDetails = await getSignUpDetails();
+    final mobile = signUpDetails['mobile'];
+    final pin = signUpDetails['pin'];
+
+    if (mobileController.text == mobile && pinController.text == pin) {
+      Navigator.pushReplacementNamed(context, "MainPage");
+    } else {
+      setState(() {
+        isInvalidCredentials = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Invalid credentials, please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  // Authenticate with Biometric
+  Future<void> authenticateWithBiometrics() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+        localizedReason: 'Scan your fingerprint to authenticate',
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    if (authenticated) {
+      final signUpDetails = await getSignUpDetails();
+      final mobile = signUpDetails['mobile'];
+      final pin = signUpDetails['pin'];
+      if (mobile != null && pin != null) {
+        setState(() {
+          mobileController.text = mobile;
+          pinController.text = pin;
+        });
+        validateAndLogin();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> fKey = GlobalKey<FormState>();
-    TextEditingController MobileController = TextEditingController();
-    TextEditingController PinController = TextEditingController();
-
-    bool isInvalidCredentials = false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xff004aad),
@@ -34,9 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
                 height: 150,
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               Container(
                 height: 430,
                 width: 330,
@@ -62,44 +127,34 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Text(
                             "LogIn",
-                            style: TextStyle(
-                              fontSize: 30,
-                              // fontFamily: "TAS",
-                            ),
+                            style: TextStyle(fontSize: 30),
                           ),
-                          SizedBox(width: 15,),
+                          SizedBox(width: 15),
                           SizedBox(
-                            height: 40,width: 35,
+                            height: 40,
+                            width: 35,
                             child: Image.asset(
                                 "assets/images/SplashScreenIcon/LoginIcon.png"),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20),
                       TextFormField(
-                        controller: MobileController,
+                        controller: mobileController,
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.next,
                         maxLength: 10,
-                        // maxLengthEnforcement: MaxLengthEnforcement.none,
                         decoration: InputDecoration(
                           label: Text(
                             "Mobile No",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
+                            style: TextStyle(color: Colors.black),
                           ),
                           counterText: '',
-                          // use is not visible maxLength in UI
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xff004aad),
-                            ),
+                            borderSide: BorderSide(color: Color(0xff004aad)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
@@ -112,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(height: 8),
                       TextFormField(
-                        controller: PinController,
+                        controller: pinController,
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
                         maxLength: 4,
@@ -130,18 +185,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           label: Text(
                             "Pin",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
+                            style: TextStyle(color: Colors.black),
                           ),
                           counterText: '',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xff004aad),
-                            ),
+                            borderSide: BorderSide(color: Color(0xff004aad)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
@@ -152,29 +203,31 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FilledButton(
+                      SizedBox(height: 20),
+                      ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "MainPage");
+                          if (fKey.currentState!.validate()) {
+                            validateAndLogin();
+                          }
                         },
-                        child: Text("LogIn"),
-                        style: FilledButton.styleFrom(
+                        child: Text(
+                          "LogIn",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff004aad),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
-                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.fingerprint,
-                          size: 40,
-                        ),
+                        onPressed: () {
+                          authenticateWithBiometrics();
+                        },
+                        icon: Icon(Icons.fingerprint, size: 40),
                       ),
                       Divider(),
                       Row(
@@ -186,9 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             child: Text(
                               "SignUp",
-                              style: TextStyle(
-                                color: Color(0xff004aad),
-                              ),
+                              style: TextStyle(color: Color(0xff004aad)),
                             ),
                           ),
                           Padding(

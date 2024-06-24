@@ -4,10 +4,18 @@ import 'package:own_music/modal/ArtistsModal.dart';
 ArtistsController artistsController = ArtistsController();
 
 class ArtistsController {
+
   Future<List<ArtistPlayList>> getAllSongs() async {
     await Future.delayed(Duration(seconds: 2));
     return [
       ...ArijitSinghPlaylist,
+      ...PritamPlaylist,
+      ...BadshahPlaylist,
+      ...NehaKakkarPlaylist,
+      ...BPraakPlaylist,
+      ...JubinNautiyalPlaylist,
+      ...TonyKakkarPlaylist,
+      ...TanishkBagchiPlaylist,
     ];
   }
 }
@@ -58,7 +66,7 @@ List<Artist> artists = [
 ];
 
 // Add more playlists for other artists
-final Map<String, List<ArtistPlayList>> playlists = {
+Map<String, List<ArtistPlayList>> playlists = {
   'Arijit Singh': ArijitSinghPlaylist,
   'Pritam': PritamPlaylist,
   'Badshah': BadshahPlaylist,
