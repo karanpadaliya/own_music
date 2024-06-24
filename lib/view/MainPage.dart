@@ -143,17 +143,14 @@ class _MainPageState extends State<MainPage>
                               size: 26,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 24, top: 5),
+                              padding: EdgeInsets.only(left: 12),
                               child: CircleAvatar(
                                 backgroundColor: Colors.red,
                                 foregroundColor: Colors.white,
-                                maxRadius: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(1.0),
-                                  child: Text(
-                                    "1+",
-                                    style: TextStyle(fontSize: 13),
-                                  ),
+                                maxRadius: 7,
+                                child: Text(
+                                  "1+",
+                                  style: TextStyle(fontSize: 9,fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
