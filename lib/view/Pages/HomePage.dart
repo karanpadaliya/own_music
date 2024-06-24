@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
 
     // Add a listener to the scroll controller
     scrollController.addListener(() {
-      if (scrollController.offset > scrollController.position.maxScrollExtent &&
+      // Calculate a threshold value for detecting if the user is at the end
+      double threshold = 50.0;
+      if (scrollController.offset >= scrollController.position.maxScrollExtent - threshold &&
           !scrollController.position.outOfRange) {
         if (!showExpandIcon) {
           setState(() {
@@ -185,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                 leading: CircleAvatar(
                                   maxRadius: 25,
                                   backgroundImage:
-                                      NetworkImage(song.SongimageUrl),
+                                  NetworkImage(song.SongimageUrl),
                                 ),
                                 title: Text(song.SongName),
                                 subtitle: Text(song.Album),
@@ -200,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                                     }
                                     setState(() {
                                       isPlayingList[index] = !isPlayingList[
-                                          index]; // Toggle the playing state
+                                      index]; // Toggle the playing state
                                     });
                                   },
                                   icon: Icon(
@@ -223,39 +225,37 @@ class _HomePageState extends State<HomePage> {
               // Show expand icon only if showExpandIcon is true
               showExpandIcon
                   ? Center(
-                      child: IconButton(
-                        onPressed: () {
-                          print("showExpandIcon $showExpandIcon");
-                          scrollController.animateTo(
-                            scrollController.position.minScrollExtent,
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.linear,
-                          );
-                        },
-                        icon: Icon(
-                          Icons.arrow_circle_up_outlined,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    )
+                child: IconButton(
+                  onPressed: () {
+                    scrollController.animateTo(
+                      scrollController.position.minScrollExtent,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.linear,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.arrow_circle_up_outlined,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+              )
                   : Center(
-                      child: IconButton(
-                        onPressed: () {
-                          print("showExpandIcon $showExpandIcon");
-                          scrollController.animateTo(
-                            scrollController.position.maxScrollExtent,
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.linear,
-                          );
-                        },
-                        icon: Icon(
-                          Icons.arrow_circle_down_outlined,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    ),
+                child: IconButton(
+                  onPressed: () {
+                    scrollController.animateTo(
+                      scrollController.position.maxScrollExtent,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.linear,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.arrow_circle_down_outlined,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

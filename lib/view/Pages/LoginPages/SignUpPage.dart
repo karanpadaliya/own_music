@@ -91,6 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               keyboardType: TextInputType.name,
                               textInputAction: TextInputAction.next,
                               maxLength: 20,
+                              textCapitalization: TextCapitalization.words,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your name';
@@ -116,6 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               keyboardType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
                               maxLength: 50,
+                              textCapitalization: TextCapitalization.words,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';

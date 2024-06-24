@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:own_music/view/Pages/LoginPages/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +15,9 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
+
+  // Variable to toggle pin visibility
+  bool obscurePin = true;
 
   @override
   void initState() {
@@ -37,7 +41,14 @@ class _ProfilePageState extends State<ProfilePage> {
     await prefs.setString('email', emailController.text);
     await prefs.setString('mobile', mobileController.text);
     await prefs.setString('pin', pinController.text);
-    Navigator.pop(context);
+    // Clear SharedPreferences
+    // SharedPreferences.getInstance().then((prefs) {
+    //   prefs.clear();
+      // Navigate back to the login screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
   }
 
   void _editProfile() {
@@ -67,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 TextFormField(
                   controller: pinController,
-                  obscureText: true,
+                  obscureText: obscurePin, // Use the variable to toggle
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Pin'),
                 ),
@@ -99,6 +110,18 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       },
     );
+  }
+
+  void _logout() {
+    // Clear SharedPreferences
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.clear();
+      // Navigate back to the login screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+    });
   }
 
   @override
@@ -159,30 +182,73 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.w500),
                 enabled: false,
               ),
-              TextFormField(
-                controller: pinController,
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Pin',
-                  labelStyle: TextStyle(color: Colors.white),
-                ),
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w500),
-                enabled: false,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: pinController,
+                      obscureText: obscurePin,
+                      // Use the variable to toggle
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Pin',
+                        labelStyle: TextStyle(color: Colors.white),
+                      ),
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w500),
+                      enabled: false,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscurePin = !obscurePin;
+                      });
+                    },
+                    icon: Icon(obscurePin ? Icons.visibility_off : Icons.visibility),
+                  )
+                ],
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _editProfile,
-                child: Text('Edit'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Color(0xff004aad),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: _editProfile,
+                    child: Row(
+                      children: [
+                        Text('Edit'),
+                        SizedBox(width: 5,),
+                        Icon(Icons.edit_note)
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Color(0xff004aad),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: _logout,
+                    child: Row(
+                      children: [
+                        Text('Logout'),
+                        SizedBox(width: 5,),
+                        Icon(Icons.logout)
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -191,3 +257,4 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
