@@ -40,40 +40,148 @@ class _ProfilePageState extends State<ProfilePage> {
     Navigator.pop(context);
   }
 
+  void _editProfile() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Edit Profile'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                ),
+                TextFormField(
+                  controller: mobileController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Mobile'),
+                ),
+                TextFormField(
+                  controller: pinController,
+                  obscureText: true,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Pin'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                _saveProfileDetails();
+              },
+              child: Text('Save'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xff004aad),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff4aad),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: Container(
+          height: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(
+              colors: [
+                Colors.white.withOpacity(0.4),
+                Colors.white.withOpacity(0.2),
+              ],
+              begin: Alignment.bottomLeft,
+            ),
+          ),
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
+                enabled: false,
               ),
               TextFormField(
                 controller: emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
+                enabled: false,
               ),
               TextFormField(
                 controller: mobileController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Mobile'),
+                decoration: InputDecoration(
+                  labelText: 'Mobile',
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
+                enabled: false,
               ),
               TextFormField(
                 controller: pinController,
                 obscureText: true,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Pin'),
+                decoration: InputDecoration(
+                  labelText: 'Pin',
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
+                enabled: false,
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _saveProfileDetails,
-                child: Text('Save'),
+                onPressed: _editProfile,
+                child: Text('Edit'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Color(0xff004aad),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                 ),
               ),
             ],
