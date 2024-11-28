@@ -41,7 +41,8 @@ class _HomePageState extends State<HomePage> {
     scrollController.addListener(() {
       // Calculate a threshold value for detecting if the user is at the end
       double threshold = 50.0;
-      if (scrollController.offset >= scrollController.position.maxScrollExtent - threshold &&
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent - threshold &&
           !scrollController.position.outOfRange) {
         if (!showExpandIcon) {
           setState(() {
@@ -69,16 +70,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff004aad),
+        backgroundColor: const Color(0xff004aad),
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 10, bottom: 8),
+                    padding: EdgeInsets.only(left: 8, top: 10, bottom: 8),
                     child: Text(
                       "Top Picks",
                       style: TextStyle(
@@ -92,15 +93,15 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 height: 206,
-                color: Color(0xff004aad),
+                color: const Color(0xff004aad),
                 child: CarouselSliderPage(),
               ),
               Container(
                 height: 200,
-                child: ArtistsPage(),
+                child: const ArtistsPage(),
               ),
-              SizedBox(height: 30),
-              Row(
+              const SizedBox(height: 30),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                 future: songsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(
                         color: Colors.white,
                       ),
@@ -137,12 +138,12 @@ class _HomePageState extends State<HomePage> {
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-                    return Text('No songs found');
+                    return const Text('No songs found');
                   } else {
                     return SizedBox(
                       height: 250,
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         controller: scrollController,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
@@ -156,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               height: 70,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),
                                 gradient: LinearGradient(
@@ -187,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                                 leading: CircleAvatar(
                                   maxRadius: 25,
                                   backgroundImage:
-                                  NetworkImage(song.SongimageUrl),
+                                      NetworkImage(song.SongimageUrl),
                                 ),
                                 title: Text(song.SongName),
                                 subtitle: Text(song.Album),
@@ -202,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                                     }
                                     setState(() {
                                       isPlayingList[index] = !isPlayingList[
-                                      index]; // Toggle the playing state
+                                          index]; // Toggle the playing state
                                     });
                                   },
                                   icon: Icon(
@@ -210,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                                         ? Icons.pause_circle_outline
                                         : Icons.play_circle_outline,
                                     size: 35,
-                                    color: Color(0xff004aad),
+                                    color: const Color(0xff004aad),
                                   ),
                                 ),
                               ),
@@ -225,37 +226,37 @@ class _HomePageState extends State<HomePage> {
               // Show expand icon only if showExpandIcon is true
               showExpandIcon
                   ? Center(
-                child: IconButton(
-                  onPressed: () {
-                    scrollController.animateTo(
-                      scrollController.position.minScrollExtent,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.linear,
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_circle_up_outlined,
-                    color: Colors.white,
-                    size: 28,
-                  ),
-                ),
-              )
+                      child: IconButton(
+                        onPressed: () {
+                          scrollController.animateTo(
+                            scrollController.position.minScrollExtent,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.linear,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.arrow_circle_up_outlined,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    )
                   : Center(
-                child: IconButton(
-                  onPressed: () {
-                    scrollController.animateTo(
-                      scrollController.position.maxScrollExtent,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.linear,
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_circle_down_outlined,
-                    color: Colors.white,
-                    size: 28,
-                  ),
-                ),
-              ),
+                      child: IconButton(
+                        onPressed: () {
+                          scrollController.animateTo(
+                            scrollController.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.linear,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.arrow_circle_down_outlined,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

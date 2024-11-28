@@ -44,11 +44,11 @@ class _ProfilePageState extends State<ProfilePage> {
     // Clear SharedPreferences
     // SharedPreferences.getInstance().then((prefs) {
     //   prefs.clear();
-      // Navigate back to the login screen
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
+    // Navigate back to the login screen
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 
   void _editProfile() {
@@ -56,31 +56,31 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit Profile'),
+          title: const Text('Edit Profile'),
           content: SingleChildScrollView(
             child: Column(
               children: [
                 TextFormField(
                   controller: nameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Name',
                     hintStyle: TextStyle(color: Colors.white),
                   ),
                 ),
                 TextFormField(
                   controller: emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration: const InputDecoration(labelText: 'Email'),
                 ),
                 TextFormField(
                   controller: mobileController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Mobile'),
+                  decoration: const InputDecoration(labelText: 'Mobile'),
                 ),
                 TextFormField(
                   controller: pinController,
                   obscureText: obscurePin, // Use the variable to toggle
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Pin'),
+                  decoration: const InputDecoration(labelText: 'Pin'),
                 ),
               ],
             ),
@@ -90,17 +90,17 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 _saveProfileDetails();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xff004aad),
+                backgroundColor: const Color(0xff004aad),
               ),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // Navigate back to the login screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     });
   }
@@ -127,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff4aad),
+      backgroundColor: const Color(0xff4aad),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
@@ -142,16 +142,16 @@ class _ProfilePageState extends State<ProfilePage> {
               begin: Alignment.bottomLeft,
             ),
           ),
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name',
                   labelStyle: TextStyle(color: Colors.white),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 19,
                     fontWeight: FontWeight.w500),
@@ -159,11 +159,11 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextFormField(
                 controller: emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(color: Colors.white),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 19,
                     fontWeight: FontWeight.w500),
@@ -172,11 +172,11 @@ class _ProfilePageState extends State<ProfilePage> {
               TextFormField(
                 controller: mobileController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Mobile',
                   labelStyle: TextStyle(color: Colors.white),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 19,
                     fontWeight: FontWeight.w500),
@@ -191,11 +191,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       obscureText: obscurePin,
                       // Use the variable to toggle
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Pin',
                         labelStyle: TextStyle(color: Colors.white),
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 19,
                           fontWeight: FontWeight.w500),
@@ -208,36 +208,41 @@ class _ProfilePageState extends State<ProfilePage> {
                         obscurePin = !obscurePin;
                       });
                     },
-                    icon: Icon(obscurePin ? Icons.visibility_off : Icons.visibility),
+                    icon: Icon(
+                        obscurePin ? Icons.visibility_off : Icons.visibility),
                   )
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
                     onPressed: _editProfile,
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text('Edit'),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Icon(Icons.edit_note)
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Color(0xff004aad),
+                      backgroundColor: const Color(0xff004aad),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: _logout,
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text('Logout'),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Icon(Icons.logout)
                       ],
                     ),
@@ -257,4 +262,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-

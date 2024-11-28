@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xff004aad),
+      backgroundColor: const Color(0xff004aad),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -55,15 +55,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Colors.white,
                       height: 150,
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Container(
                       width: 330,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Color(0xfff4f4f4).withOpacity(0.9),
+                        color: const Color(0xfff4f4f4).withOpacity(0.9),
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
-                          BoxShadow(
+                          const BoxShadow(
                             blurRadius: 50,
                             color: CupertinoColors.systemGrey,
                             blurStyle: BlurStyle.outer,
@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Row(
+                            const Row(
                               children: [
                                 Icon(Icons.edit_note_outlined, size: 35),
                                 SizedBox(width: 5),
@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: nameController,
                               keyboardType: TextInputType.name,
@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 label: Text(
                                   "Name",
                                   style: TextStyle(color: Colors.black),
@@ -111,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -127,7 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 label: Text(
                                   "Email",
                                   style: TextStyle(color: Colors.black),
@@ -140,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: mobileController,
                               keyboardType: TextInputType.phone,
@@ -154,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 label: Text(
                                   "Mobile No",
                                   style: TextStyle(color: Colors.black),
@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: pinController,
                               keyboardType: TextInputType.number,
@@ -193,19 +193,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ? Icons.visibility_off
                                       : Icons.visibility),
                                 ),
-                                label: Text(
+                                label: const Text(
                                   "Pin",
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 counterText: '',
-                                border: UnderlineInputBorder(),
-                                focusedBorder: UnderlineInputBorder(
+                                border: const UnderlineInputBorder(),
+                                focusedBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xff004aad)),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             ElevatedButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
@@ -218,13 +218,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                   });
                                 }
                               },
-                              child: Text(
+                              child: const Text(
                                 "SignUp",
                                 style: TextStyle(color: Colors.white),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xff004aad),
-                                shape: RoundedRectangleBorder(
+                                primary: const Color(0xff004aad),
+                                shape: const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5)),
                                 ),

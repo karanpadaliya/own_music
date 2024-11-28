@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
         isInvalidCredentials = true;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Invalid credentials, please try again.'),
           backgroundColor: Colors.red,
         ),
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xff004aad),
+      backgroundColor: const Color(0xff004aad),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -101,16 +101,16 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
                 height: 150,
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 height: 430,
                 width: 330,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Color(0xfff4f4f4).withOpacity(0.9),
+                  color: const Color(0xfff4f4f4).withOpacity(0.9),
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                       blurRadius: 50,
                       color: CupertinoColors.systemGrey,
                       blurStyle: BlurStyle.outer,
@@ -125,11 +125,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             "LogIn",
                             style: TextStyle(fontSize: 30),
                           ),
-                          SizedBox(width: 15),
+                          const SizedBox(width: 15),
                           SizedBox(
                             height: 40,
                             width: 35,
@@ -138,14 +138,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: mobileController,
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.next,
                         maxLength: 10,
                         decoration: InputDecoration(
-                          label: Text(
+                          label: const Text(
                             "Mobile No",
                             style: TextStyle(color: Colors.black),
                           ),
@@ -154,7 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff004aad)),
+                            borderSide:
+                                const BorderSide(color: Color(0xff004aad)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
@@ -165,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       TextFormField(
                         controller: pinController,
                         keyboardType: TextInputType.number,
@@ -183,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? Icons.visibility_off
                                 : Icons.visibility),
                           ),
-                          label: Text(
+                          label: const Text(
                             "Pin",
                             style: TextStyle(color: Colors.black),
                           ),
@@ -192,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff004aad)),
+                            borderSide:
+                                const BorderSide(color: Color(0xff004aad)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
@@ -203,22 +205,22 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           if (fKey.currentState!.validate()) {
                             validateAndLogin();
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           "LogIn",
                           style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff004aad),
-                          shape: RoundedRectangleBorder(
+                          backgroundColor: const Color(0xff004aad),
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
                         ),
@@ -227,17 +229,17 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           authenticateWithBiometrics();
                         },
-                        icon: Icon(Icons.fingerprint, size: 40),
+                        icon: const Icon(Icons.fingerprint, size: 40),
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         children: [
-                          Text("Create Account"),
+                          const Text("Create Account"),
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, "SignUpPage");
                             },
-                            child: Text(
+                            child: const Text(
                               "SignUp",
                               style: TextStyle(color: Color(0xff004aad)),
                             ),
@@ -250,8 +252,8 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.grey,
                             ),
                           ),
-                          Text("Need Help"),
-                          Icon(Icons.info_outline),
+                          const Text("Need Help"),
+                          const Icon(Icons.info_outline),
                         ],
                       ),
                     ],

@@ -72,7 +72,7 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff004aad),
+        backgroundColor: const Color(0xff004aad),
         body: Column(
           children: [
             // Blurred AppBar
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage>
                     gradient: LinearGradient(
                       colors: [
                         Colors.white,
-                        Color(0xff004aad).withOpacity(0.5),
+                        const Color(0xff004aad).withOpacity(0.5),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -103,7 +103,7 @@ class _MainPageState extends State<MainPage>
                         ? TextField(
                             maxLength: 10,
                             controller: searchController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Search',
                               border: InputBorder.none,
                               counterText: '',
@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage>
                     actions: [
                       isSearching
                           ? IconButton(
-                              icon: Icon(Icons.clear),
+                              icon: const Icon(Icons.clear),
                               onPressed: () {
                                 setState(() {
                                   searchController.clear();
@@ -129,14 +129,14 @@ class _MainPageState extends State<MainPage>
                                   isSearching = true;
                                 });
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.search_outlined,
                                 size: 26,
                               ),
                             ),
                       IconButton(
                         onPressed: () {},
-                        icon: Stack(
+                        icon: const Stack(
                           children: [
                             Icon(
                               Icons.notifications_active_outlined,
@@ -163,7 +163,7 @@ class _MainPageState extends State<MainPage>
                             tabController.index = 4; // Select Profile tab
                           });
                         },
-                        icon: CircleAvatar(
+                        icon: const CircleAvatar(
                           backgroundColor: Color(0xff004aad),
                           child: Icon(
                             CupertinoIcons.person,
@@ -181,7 +181,7 @@ class _MainPageState extends State<MainPage>
             Expanded(
               child: isSearching
                   ? searchResults.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             'Let\'s search your favorite song',
                             style: TextStyle(
@@ -200,7 +200,7 @@ class _MainPageState extends State<MainPage>
                               children: [
                                 Text(
                                   artistPlaylist.SongName,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -220,7 +220,7 @@ class _MainPageState extends State<MainPage>
                                             child: Container(
                                               height: 70,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
+                                                borderRadius: const BorderRadius.all(
                                                   Radius.circular(20),
                                                 ),
                                                 gradient: LinearGradient(
@@ -296,7 +296,7 @@ class _MainPageState extends State<MainPage>
                                                         : Icons
                                                             .play_circle_outline,
                                                     size: 35,
-                                                    color: Color(0xff004aad),
+                                                    color: const Color(0xff004aad),
                                                   ),
                                                 ),
                                               ),
@@ -304,7 +304,7 @@ class _MainPageState extends State<MainPage>
                                           );
                                         }).toList(),
                                       )
-                                    : Center(
+                                    : const Center(
                                         child: Text(
                                           'Song not found',
                                           style: TextStyle(
@@ -313,7 +313,7 @@ class _MainPageState extends State<MainPage>
                                           ),
                                         ),
                                       ),
-                                Divider(),
+                                const Divider(),
                               ],
                             );
                           },
@@ -322,10 +322,10 @@ class _MainPageState extends State<MainPage>
                       controller: tabController,
                       children: [
                         HomePage(),
-                        AudioPage(),
-                        VideoPage(),
+                        const AudioPage(),
+                        const VideoPage(),
                         FavouritePage(),
-                        ProfilePage(),
+                        const ProfilePage(),
                       ],
                     ),
             ),
@@ -333,7 +333,7 @@ class _MainPageState extends State<MainPage>
         ),
         // Bottom Navigation Bar
         bottomNavigationBar: Container(
-          color: Color(0xfff4f4f4),
+          color: const Color(0xfff4f4f4),
           child: TabBar(
             controller: tabController,
             labelColor: Colors.black,
@@ -341,14 +341,14 @@ class _MainPageState extends State<MainPage>
             indicatorSize: TabBarIndicatorSize.label,
             unselectedLabelColor: Colors.grey,
             isScrollable: true,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             tabAlignment: TabAlignment.start,
             tabs: [
-              Tab(text: 'Home'),
-              Tab(text: 'Audio'),
-              Tab(text: 'Video'),
-              Tab(text: 'Favourite'),
-              Tab(text: 'Profile'),
+              const Tab(text: 'Home'),
+              const Tab(text: 'Audio'),
+              const Tab(text: 'Video'),
+              const Tab(text: 'Favourite'),
+              const Tab(text: 'Profile'),
             ],
           ),
         ),
@@ -367,7 +367,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Navigator(
         pages: [
-          MaterialPage(child: MainPage()),
+          const MaterialPage(child: MainPage()),
         ],
         onPopPage: (route, result) {
           // Prevent navigating back from closing the app
